@@ -1,0 +1,8 @@
+1、配置NDK，SDK，JDK
+2、安装CMAKE（https://cmake.org/download/），
+3、安装MSYS2，（https://www.msys2.org/）并在窗口依次执行以下指令：
+pacman -S mingw-w64-x86_64-cmake
+pacman -S mingw-w64-x86_64-make
+pacman -S mingw-w64-x86_64-gcc
+pacman -S git
+4、配置Path D:\Applications\msys64\mingw64\bin

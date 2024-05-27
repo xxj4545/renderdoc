@@ -43,6 +43,10 @@
 #error "Unknown platform"
 #endif
 
+#ifndef EMBED_RENDERDOC_CAPTURE
+#define EMBED_RENDERDOC_CAPTURE 1
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -411,6 +415,10 @@ typedef const char *(RENDERDOC_CC *pRENDERDOC_GetCaptureFilePathTemplate)();
 typedef pRENDERDOC_SetCaptureFilePathTemplate pRENDERDOC_SetLogFilePathTemplate;
 typedef pRENDERDOC_GetCaptureFilePathTemplate pRENDERDOC_GetLogFilePathTemplate;
 
+#if EMBED_RENDERDOC_CAPTURE
+typedef void(RENDERDOC_CC* pRENDERDOC_RegisterHooks)();
+#endif
+
 // returns the number of captures that have been made
 typedef uint32_t(RENDERDOC_CC *pRENDERDOC_GetNumCaptures)();
 
@@ -686,6 +694,10 @@ typedef struct RENDERDOC_API_1_6_0
   // new function in 1.1.0
   pRENDERDOC_TriggerMultiFrameCapture TriggerMultiFrameCapture;
 
+#if EMBED_RENDERDOC_CAPTURE
+  pRENDERDOC_RegisterHooks RegisterHooks;
+#endif
+
   // new function in 1.2.0
   pRENDERDOC_SetCaptureFileComments SetCaptureFileComments;
 
@@ -697,6 +709,7 @@ typedef struct RENDERDOC_API_1_6_0
 
   // new function in 1.6.0
   pRENDERDOC_SetCaptureTitle SetCaptureTitle;
+
 } RENDERDOC_API_1_6_0;
 
 typedef RENDERDOC_API_1_6_0 RENDERDOC_API_1_0_0;

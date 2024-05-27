@@ -67,7 +67,11 @@ static BOOL add_hooks()
 
   RDCLOG("Loading into %ls", curFile);
 
+#if EMBED_RENDERDOC_CAPTURE
+  LibraryHooks::RegisterHooksOnLoad();
+#else
   LibraryHooks::RegisterHooks();
+#endif
 
   return TRUE;
 }

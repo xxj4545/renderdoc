@@ -105,7 +105,12 @@ void KeepLayerAlive()
 class VulkanHook : LibraryHook
 {
   VulkanHook() {}
+#if EMBED_RENDERDOC_CAPTURE && ENABLED(RDOC_ANDROID)
+  void RegisterHooks() {}
+  void RegisterHooksOnLoad()
+#else
   void RegisterHooks()
+#endif
   {
     RDCLOG("Registering Vulkan hooks");
 

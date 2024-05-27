@@ -146,6 +146,11 @@ class LibraryHooks
 public:
   // generic, implemented in hooks.cpp to iterate over all registered libraries
   static void RegisterHooks();
+
+#if EMBED_RENDERDOC_CAPTURE
+  static void RegisterHooksOnLoad();
+#endif
+
   static void OptionsUpdated();
   static void RemoveHookCallbacks();
 
@@ -187,6 +192,9 @@ struct LibraryHook
 {
   LibraryHook();
   virtual void RegisterHooks() = 0;
+#if EMBED_RENDERDOC_CAPTURE
+  static void RegisterHooksOnLoad() {}
+#endif
   virtual void OptionsUpdated() {}
   virtual void RemoveHooks() {}
 private:

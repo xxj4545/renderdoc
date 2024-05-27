@@ -601,6 +601,13 @@ void RenderDoc::RemoveHooks()
   }
 }
 
+#if EMBED_RENDERDOC_CAPTURE
+void RenderDoc::RegisterHooks()
+{
+	LibraryHooks::RegisterHooks();
+}
+#endif
+
 void RenderDoc::InitialiseReplay(GlobalEnvironment env, const rdcarray<rdcstr> &args)
 {
   if(!IsReplayApp())
@@ -1375,7 +1382,11 @@ RDCFile *RenderDoc::CreateRDC(RDCDriver driver, uint32_t frameNum, const FramePi
 {
   RDCFile *ret = new RDCFile;
 
+#if EMBED_RENDERDOC_CAPTURE
+  rdcstr suffix = "";
+#else
   rdcstr suffix = StringFormat::Fmt("_frame%u", frameNum);
+#endif
 
   if(frameNum == ~0U)
     suffix = "_capture";

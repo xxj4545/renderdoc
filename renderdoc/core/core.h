@@ -445,6 +445,9 @@ public:
   const char *GetCaptureFileTemplate() const { return m_CaptureFileTemplate.c_str(); }
   const rdcstr &GetCurrentTarget() const { return m_Target; }
   void Initialise();
+#if EMBED_RENDERDOC_CAPTURE
+  void RegisterHooks();
+#endif
   void RemoveHooks();
 
   const GlobalEnvironment &GetGlobalEnvironment() { return m_GlobalEnv; }

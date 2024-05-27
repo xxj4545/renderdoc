@@ -51,6 +51,13 @@ static void MaskOverlayBits(uint32_t And, uint32_t Or)
   RenderDoc::Inst().MaskOverlayBits(And, Or);
 }
 
+#if EMBED_RENDERDOC_CAPTURE
+static void RegisterHooks()
+{
+    return RenderDoc::Inst().RegisterHooks();
+}
+#endif
+
 static void RemoveHooks()
 {
   RenderDoc::Inst().RemoveHooks();
@@ -315,6 +322,9 @@ void Init_1_6_0()
   api.ShowReplayUI = &ShowReplayUI;
 
   api.SetCaptureTitle = &SetCaptureTitle;
+#if EMBED_RENDERDOC_CAPTURE
+  api.RegisterHooks = &RegisterHooks;
+#endif
 }
 
 extern "C" RENDERDOC_API int RENDERDOC_CC RENDERDOC_GetAPI(RENDERDOC_Version version,

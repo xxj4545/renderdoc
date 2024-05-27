@@ -693,7 +693,7 @@ if(ANDROID)
         add_custom_command(TARGET renderdoc POST_BUILD
             COMMAND echo Stripping $<TARGET_FILE:renderdoc>
             COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:renderdoc> $<TARGET_FILE:renderdoc>.dbg
-            COMMAND ${ANDROID_STRIP_TOOL} --strip-unneeded $<TARGET_FILE:renderdoc>)
+            COMMAND ${ANDROID_STRIP_TOOL} --strip-all $<TARGET_FILE:renderdoc>)
     endif()
 endif()
 

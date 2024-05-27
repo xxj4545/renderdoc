@@ -47,6 +47,16 @@ void LibraryHooks::RegisterHooks()
   EndHookRegistration();
 }
 
+#if EMBED_RENDERDOC_CAPTURE
+void LibraryHooks::RegisterHooksOnLoad()
+{
+    BeginHookRegistration();
+    for (LibraryHook* lib : LibList())
+        lib->RegisterHooksOnLoad();
+    EndHookRegistration();
+}
+#endif
+
 void LibraryHooks::RemoveHookCallbacks()
 {
   for(LibraryHook *lib : LibList())

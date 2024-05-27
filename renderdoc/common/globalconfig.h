@@ -237,3 +237,7 @@ enum
 #define ENABLE_UNIT_TESTS RDOC_DEVEL
 
 #endif
+
+#ifndef EMBED_RENDERDOC_CAPTURE
+#define EMBED_RENDERDOC_CAPTURE 1
+#endif
