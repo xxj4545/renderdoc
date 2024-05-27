@@ -446,7 +446,7 @@ public:
   const rdcstr &GetCurrentTarget() const { return m_Target; }
   void Initialise();
 #if EMBED_RENDERDOC_CAPTURE
-  void RegisterHooks();
+  void ForceRegisterEGLHooks();
 #endif
   void RemoveHooks();
 

@@ -148,7 +148,7 @@ public:
   static void RegisterHooks();
 
 #if EMBED_RENDERDOC_CAPTURE
-  static void RegisterHooksOnLoad();
+  static void ForceRegisterEGLHooks();
 #endif
 
   static void OptionsUpdated();
@@ -193,7 +193,7 @@ struct LibraryHook
   LibraryHook();
   virtual void RegisterHooks() = 0;
 #if EMBED_RENDERDOC_CAPTURE
-  static void RegisterHooksOnLoad() {}
+  virtual void ForceRegisterEGLHooks() {}
 #endif
   virtual void OptionsUpdated() {}
   virtual void RemoveHooks() {}

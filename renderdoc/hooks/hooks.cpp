@@ -48,11 +48,11 @@ void LibraryHooks::RegisterHooks()
 }
 
 #if EMBED_RENDERDOC_CAPTURE
-void LibraryHooks::RegisterHooksOnLoad()
+void LibraryHooks::ForceRegisterEGLHooks()
 {
     BeginHookRegistration();
     for (LibraryHook* lib : LibList())
-        lib->RegisterHooksOnLoad();
+        lib->ForceRegisterEGLHooks();
     EndHookRegistration();
 }
 #endif

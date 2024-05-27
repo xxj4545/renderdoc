@@ -72,11 +72,8 @@ void library_loaded()
 
     RDCLOG("Loading into %s", curfile.c_str());
 
-#if EMBED_RENDERDOC_CAPTURE
-    LibraryHooks::RegisterHooksOnLoad();
-#else
     LibraryHooks::RegisterHooks();
-#endif
+
     // we have a short sleep here to allow target control to connect, since unlike windows we can't
     // suspend the process during startup.
     Threading::Sleep(15);

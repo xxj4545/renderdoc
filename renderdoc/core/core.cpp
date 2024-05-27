@@ -602,9 +602,9 @@ void RenderDoc::RemoveHooks()
 }
 
 #if EMBED_RENDERDOC_CAPTURE
-void RenderDoc::RegisterHooks()
+void RenderDoc::ForceRegisterEGLHooks()
 {
-	LibraryHooks::RegisterHooks();
+	LibraryHooks::ForceRegisterEGLHooks();
 }
 #endif
 

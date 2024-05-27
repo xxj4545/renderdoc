@@ -73,6 +73,10 @@ public:
   }
   void RegisterHooks();
 
+#if EMBED_RENDERDOC_CAPTURE
+  void ForceRegisterEGLHooks();
+#endif
+
   RDCDriver activeAPI = RDCDriver::OpenGLES;
 
   void *handle = DEFAULT_HANDLE;
@@ -1070,6 +1074,49 @@ bool ShouldHookEGL()
   return true;
 }
 
+#endif
+
+#if EMBED_RENDERDOC_CAPTURE
+void EGLHook::ForceRegisterEGLHooks()
+{
+    RDCLOG("[LHFramecapture] Force Registering EGL hooks");
+
+#if ENABLED(RDOC_WIN32)
+#define LIBSUFFIX ".dll"
+#else
+#define LIBSUFFIX ".so"
+#endif
+
+    // register library hooks
+    LibraryHooks::RegisterLibraryHook("libEGL" LIBSUFFIX, &EGLHooked);
+    LibraryHooks::RegisterLibraryHook("libEGL" LIBSUFFIX ".1", &EGLHooked);
+
+    // we have to specify these with the most preferred library first. If the same function is
+    // exported in multiple libraries, the function we call into will be the first one found
+    LibraryHooks::RegisterLibraryHook("libGLESv3" LIBSUFFIX, NULL);
+    LibraryHooks::RegisterLibraryHook("libGLESv2" LIBSUFFIX ".2", NULL);
+    LibraryHooks::RegisterLibraryHook("libGLESv2" LIBSUFFIX, NULL);
+    LibraryHooks::RegisterLibraryHook("libGLESv1_CM" LIBSUFFIX, NULL);
+
+#if ENABLED(RDOC_WIN32)
+    // on windows, we want to ignore any GLES libraries to ensure we capture the GLES calls, not the
+    // underlying GL calls
+    LibraryHooks::IgnoreLibrary("libEGL.dll");
+    LibraryHooks::IgnoreLibrary("libGLES_CM.dll");
+    LibraryHooks::IgnoreLibrary("libGLESv1_CM.dll");
+    LibraryHooks::IgnoreLibrary("libGLESv2.dll");
+    LibraryHooks::IgnoreLibrary("libGLESv3.dll");
+#endif
+
+    // register EGL hooks
+#define EGL_REGISTER(func, isext, replayrequired)             \
+  LibraryHooks::RegisterFunctionHook(                         \
+      "libEGL" LIBSUFFIX,                                     \
+      FunctionHook("egl" STRINGIZE(func), (void **)&EGL.func, \
+                                   (void *)&CONCAT(egl, CONCAT(func, _renderdoc_hooked))));
+    EGL_HOOKED_SYMBOLS(EGL_REGISTER)
+#undef EGL_REGISTER
+}
 #endif
 
 void EGLHook::RegisterHooks()

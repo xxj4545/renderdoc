@@ -52,9 +52,9 @@ static void MaskOverlayBits(uint32_t And, uint32_t Or)
 }
 
 #if EMBED_RENDERDOC_CAPTURE
-static void RegisterHooks()
+static void ForceRegisterEGLHooks()
 {
-    return RenderDoc::Inst().RegisterHooks();
+    return RenderDoc::Inst().ForceRegisterEGLHooks();
 }
 #endif
 
@@ -323,7 +323,7 @@ void Init_1_6_0()
 
   api.SetCaptureTitle = &SetCaptureTitle;
 #if EMBED_RENDERDOC_CAPTURE
-  api.RegisterHooks = &RegisterHooks;
+  api.ForceRegisterEGLHooks = &ForceRegisterEGLHooks;
 #endif
 }
 

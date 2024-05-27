@@ -416,7 +416,7 @@ typedef pRENDERDOC_SetCaptureFilePathTemplate pRENDERDOC_SetLogFilePathTemplate;
 typedef pRENDERDOC_GetCaptureFilePathTemplate pRENDERDOC_GetLogFilePathTemplate;
 
 #if EMBED_RENDERDOC_CAPTURE
-typedef void(RENDERDOC_CC* pRENDERDOC_RegisterHooks)();
+typedef void(RENDERDOC_CC* pRENDERDOC_ForceRegisterEGLHooks)();
 #endif
 
 // returns the number of captures that have been made
@@ -695,7 +695,7 @@ typedef struct RENDERDOC_API_1_6_0
   pRENDERDOC_TriggerMultiFrameCapture TriggerMultiFrameCapture;
 
 #if EMBED_RENDERDOC_CAPTURE
-  pRENDERDOC_RegisterHooks RegisterHooks;
+  pRENDERDOC_ForceRegisterEGLHooks ForceRegisterEGLHooks;
 #endif
 
   // new function in 1.2.0
