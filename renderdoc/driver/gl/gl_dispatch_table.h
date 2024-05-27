@@ -967,6 +967,10 @@ struct GLDispatchTable
   PFNWGLDXOBJECTACCESSNVPROC wglDXObjectAccessNV;
   PFNWGLDXLOCKOBJECTSNVPROC wglDXLockObjectsNV;
   PFNWGLDXUNLOCKOBJECTSNVPROC wglDXUnlockObjectsNV;
+
+  //L22 hack
+  //prototype is declared in renderdoc/driver/gl/official/glesext.h
+  PFNGLEGLIMAGETARGETTEXTURE2DOESPROC glEGLImageTargetTexture2DOES;
 };
 // clang-format on
 

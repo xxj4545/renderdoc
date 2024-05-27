@@ -2239,6 +2239,9 @@ enum class GLChunk : uint32_t
   glMapBufferRangeEXT,
   glFlushMappedBufferRangeEXT,
 
+  // L22 hack
+  glEGLImageTargetTexture2DOES,
+
   Max,
 };
 

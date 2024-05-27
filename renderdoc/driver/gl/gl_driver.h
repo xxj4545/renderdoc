@@ -525,7 +525,7 @@ private:
 
   private:
     // kept private to force everyone through accessors above
-    GLResourceRecord *m_TextureRecord[11][256];
+    GLResourceRecord *m_TextureRecord[12][256];  // L22 hack 11->12
   };
 
   struct ClientMemoryData
@@ -2562,6 +2562,7 @@ public:
   IMPLEMENT_FUNCTION_SERIALISED(void, glGetPerfQueryInfoINTEL, GLuint queryId,
                                 GLuint queryNameLength, GLchar *queryName, GLuint *dataSize,
                                 GLuint *noCounters, GLuint *noInstances, GLuint *capsMask);
+  IMPLEMENT_FUNCTION_SERIALISED(void, glEGLImageTargetTexture2DOES, GLenum target, GLeglImageOES image); // L22 hack
 };
 
 class ScopedDebugContext

@@ -86,6 +86,19 @@ static constexpr uint32_t numParams(GLenum pname)
   if(ser.IsReading() && target == eGL_NONE) \
     ser.Hidden();
 
+// L22 hack
+template <typename SerialiserType>
+bool WrappedOpenGL::Serialise_glEGLImageTargetTexture2DOES(SerialiserType& ser, GLenum target, GLeglImageOES image)
+{
+    return true;
+}
+
+// L22 hack
+void WrappedOpenGL::glEGLImageTargetTexture2DOES(GLenum target, GLeglImageOES image)
+{
+    SERIALISE_TIME_CALL(GL.glEGLImageTargetTexture2DOES(target, image));
+}
+
 template <typename SerialiserType>
 bool WrappedOpenGL::Serialise_glGenTextures(SerialiserType &ser, GLsizei n, GLuint *textures)
 {
